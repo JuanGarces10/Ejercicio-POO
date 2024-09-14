@@ -1,0 +1,74 @@
+@startuml
+class Radio {
+- nombre: string
+- frecuencia: string
+- tipoFrecuencia: string
+- programas: List<Programa>
+- trabajadores: List<Trabajador>
+}
+
+class Programa {
+- nombrePrograma: string
+- repeticion: boolean
+- radio: Radio
+- genero: Genero
+- emisiones: List<Emision>
+- encuestas: List<Encuesta>
+}
+
+class Genero {
+- tipoGenero: string
+- programas: List<Programa>
+}
+
+class Emision {
+- fecha: date
+- horaInicio: time
+- duracion: time
+- programa: Programa
+- encuesta: Encuesta
+- lugarDeTrabajo: LugarDeTrabajo
+}
+
+class Encuesta {
+- totalEncuestados: int
+- aprobaciones: int
+- rechazos: int
+- cantidadDiferencia: int
+- programa: Programa
+- companiaProductora: CompaniaProductora
+}
+
+class CompaniaProductora {
+- numeroRFC: string
+- nombre: string
+- telefonos: string
+- encuestas: List<Encuesta>
+- trabajadores: List<Trabajador>
+}
+
+class Trabajadores {
+- nombre: string
+- cedula: int
+- companiaProductora: CompaniaProductora
+- radio: Radio
+- lugarDeTrabajo: LugarDeTrabajo
+}
+
+class LugarDeTrabajo {
+- conductores: string
+- operadores: string
+- productores: string
+- trabajador: Trabajador
+- emision: Emision
+}
+
+Radio "1" --> Programa : tiene varios 
+Programa --* Emision
+Programa "1" --> Genero : tiene diferente 
+Emision --* Encuesta
+Radio --* Trabajadores
+Trabajadores --* LugarDeTrabajo
+Radio --* CompaniaProductora
+
+@enduml
